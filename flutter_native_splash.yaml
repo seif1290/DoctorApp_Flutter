@@ -3,4 +3,14 @@ flutter_native_splash:
   background_image: assets/images/splash_screen.png
 
   android_12:
-  
+    # background color
+    color: "#ffffff"
+
+    # Please note that the splash screen will be clipped to a circle on the center of the screen. 
+    # with background: 960×960 px (fit within circle 640px in diameter)    
+    # without background: 1152×1152 px (fit within circle 768px in diameter)
+    # ensure that the most important design elements of your image are placed within a circular area 
+    image: assets/images/android12_splash_screen.png   
+
+    # center-logo background color
+    icon_background_color: "#ffffff"
