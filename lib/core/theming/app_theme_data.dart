@@ -5,6 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 ThemeData appThemeData() {
   return ThemeData(
+    useMaterial3: true,
+    brightness: Brightness.light,
     primaryColor: AppColors.primaryColor,
     scaffoldBackgroundColor: AppColors.white,
     fontFamily: 'Inter',
@@ -17,6 +19,15 @@ ThemeData appThemeData() {
         ),
         minimumSize: Size(double.infinity, 52.h),
         textStyle: AppTextStyles.font16White600,
+      ),
+    ),
+
+    textButtonTheme: TextButtonThemeData(
+      style: ButtonStyle(
+        foregroundColor: const WidgetStatePropertyAll(AppColors.primaryColor),
+        textStyle: WidgetStatePropertyAll(
+          AppTextStyles.font12Grey400.copyWith(fontWeight: FontWeight.w700),
+        ),
       ),
     ),
   );
