@@ -9,6 +9,7 @@ class AppTextFormField extends StatelessWidget {
   final Widget? suffixIcon;
   final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
+  final String? Function(String?)? validator;
 
   const AppTextFormField({
     super.key,
@@ -18,11 +19,13 @@ class AppTextFormField extends StatelessWidget {
     this.suffixIcon,
     this.keyboardType,
     this.textInputAction,
+    this.validator,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      validator: validator,
       obscureText: obscureText ?? false,
       controller: controller,
       keyboardType: keyboardType,
@@ -38,6 +41,10 @@ class AppTextFormField extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
         ),
         errorBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: AppColors.error),
+          borderRadius: BorderRadius.circular(16),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
           borderSide: const BorderSide(color: AppColors.error),
           borderRadius: BorderRadius.circular(16),
         ),

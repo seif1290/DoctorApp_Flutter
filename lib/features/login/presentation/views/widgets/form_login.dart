@@ -1,8 +1,9 @@
-import 'package:doctor_app/core/theming/app_colors.dart';
-import 'package:doctor_app/core/theming/app_text_styles.dart';
+import 'package:doctor_app/core/helpers/helper_functions.dart';
 import 'package:doctor_app/core/widgets/app_text_form_field.dart';
-import 'package:doctor_app/features/login/presentation/views/widgets/terms_and_conditions.dart';
+import 'package:doctor_app/features/login/data/models/login_request_model/login_request_model.dart';
+import 'package:doctor_app/features/login/presentation/view_models/login_cubit/login_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
 class FormLogin extends StatefulWidget {
@@ -35,9 +36,15 @@ class _FormLoginState extends State<FormLogin> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Column(
         children: [
-          AppTextFormField(controller: _emailCont, hintText: 'Email'),
+          AppTextFormField(
+            controller: _emailCont,
+            hintText: 'Email',
+            validator: HelperFunctions.validateEmail,
+            keyboardType: TextInputType.emailAddress,
+          ),
           const Gap(16),
           AppTextFormField(
             controller: _passwordCont,
@@ -48,6 +55,7 @@ class _FormLoginState extends State<FormLogin> {
               icon: const Icon(Icons.visibility_off),
             ),
             textInputAction: TextInputAction.done,
+            validator: HelperFunctions.validatePassword,
           ),
           Align(
             alignment: Alignment.centerRight,
@@ -57,21 +65,18 @@ class _FormLoginState extends State<FormLogin> {
             ),
           ),
           const Gap(16),
-          ElevatedButton(onPressed: () {}, child: const Text('Login')),
-          const Gap(32),
-          const TermsAndConditions(),
-          const Gap(32),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Doesn\'t have an account yet?',
-                style: AppTextStyles.font12Grey400.copyWith(
-                  color: AppColors.black,
-                ),
-              ),
-              TextButton(onPressed: () {}, child: const Text('Sign Up')),
-            ],
+          ElevatedButton(
+            onPressed: () {
+              if (_formKey.currentState!.validate()) {
+                context.read<LoginCubit>().login(
+                  LoginRequestModel(
+                    email: _emailCont.text,
+                    password: _passwordCont.text,
+                  ),
+                );
+              }
+            },
+            child: const Text('Login'),
           ),
         ],
       ),

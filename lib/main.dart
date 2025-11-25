@@ -1,3 +1,4 @@
+import 'package:doctor_app/core/di/setup.dart';
 import 'package:doctor_app/core/routing/app_router.dart';
 import 'package:doctor_app/core/routing/routes.dart';
 import 'package:doctor_app/core/theming/app_theme_data.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() {
+  setup();
   runApp(DoctorApp(appRouter: AppRouter()));
 }
 
